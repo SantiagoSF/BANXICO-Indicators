@@ -6,14 +6,14 @@
 
 import requests
 # import json
-e3980208bf01ec653aba9aee3c2d6f70f6ae8b066d2545e379b9e0ef92e9de25
+
 
 def main():
     url = 'https://www.banxico.org.mx/SieAPIRest/service/v1/series/SF61745,SF331451,SF283,SF282,SF43718,SF110169/datos/oportuno'
     headers = {
         'Accept': 'application/json',
         'Bmx-Token': # Token de ejemplo, obtener el personal en el API de BANXICO
-            'e3980208bf01ec653aba9aee3c2d6f70f6ae8b066d2545e379b9e0ef92e9de25',
+            '20c757a458c3d560aa293c80de6891b99460e86f599853fca6a439d1f6438ad1',
         'Accept-Encoding': 'gzip'
         }
     response = requests.get(url, headers=headers)

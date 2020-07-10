@@ -1,14 +1,23 @@
 # Banxico Indicators
 
 - Imprime por terminal los siguientes indicadores financieros:
-	1.Tasa de interés objetivo
-	2.Certificados de Tesoreria a 28 dias (CETES 28)
-	3.Tasa de Interés Interbancaria de fondeo (TIIE)
-	4.TIIE de 28 dias
-	5.Tipo de cambio FIX
-	6.Reservas Internacionales en millones de dólares
+	1.Inflación Subyacente (nueva definición) Mensual
+	2.Principales índices INPP mercancías excluyendo petróleo
+	3.TIIE a 28 días Tasa de interés promedio mensual, en por ciento anual
+	4.Tasa objetivo
+	5.Tasas de desocupación abierta en áreas urbanas Total Porcentaje con respecto a la PEA
+	6.Cetes 28 días Tasa de rendimiento promedio mensual, en por ciento anual
+	7.Valor de UDIS
+	8.TIIE de Fondeo a Un Día Hábil Bancario, Mediana ponderada por volumen
+	9.Tipo de cambio
+	10.Principales agregados de la balanza de pagos como proporción del PIB Cuenta corriente como proporción del PIB
+	11.Índice Nacional de Precios al consumidor Variación mensual
+	12.Reporte sobre las Reservas Internacionales y la Liquidez en Moneda Extranjera */ I. Activos de reserva oficiales y otros activos en moneda extranjera (valor aproximado de mercado) A. Activos de reserva oficiales (1) Reservas en moneda extranjera (en divisa convertibles)
 
-Estare añadiendo mas indicadores como la inflacion y la inflacion subyacente.
+	![alt text](https://iili.io/dduTjn.png)
+
+
+
 
 
 ------------

@@ -6,6 +6,7 @@
  """
 
 import requests
+import json
 
 def main():
     """ Logica de consulta de la API. """
@@ -14,7 +15,11 @@ def main():
     # y fecha: puede ser una determinada, un rango u
     # 'oportuno' para el ultimo dato
     url = 'https://www.banxico.org.mx/SieAPIRest/service/v1/series/{0}'
-    series = 'SF61745,SF331451,SF283,SF282,SF43718,SF110169'
+    # Al agrega una nueva serie tambien es necesario agregar los indices de formateo
+    # en la variable indicator de la funcion menu para poder imprimir.
+    series = 'SF61745,SF331451,SF283,SF282,SF43718,SF110169,\
+SP30577,SP74660,SP68257,SE40521,SP4,SL1'
+
     date = '/datos/oportuno'  # Agregar fecha despues de /datos/
     params = series + date
     url = url.format(params)
@@ -26,11 +31,17 @@ def main():
         'Accept-Encoding': 'gzip'
         }
     response = requests.get(url, headers=headers)
+
+    
      
     if response.status_code == 200:
         content_json = response.json()
         content_json = content_json['bmx']['series']
         data = []
+        """ Codigo para guardar consulta en documento json.
+            with open('response-banxico.json', 'w', encoding='utf8') as f:
+            d = json.dumps(content_json, indent=4, ensure_ascii=False)
+            f.write(d) """
 
         for dictionary in content_json:
             for values in dictionary['datos']:
@@ -49,7 +60,7 @@ def menu(data):
     msg = """ \n\t\t\t\t\t\tHola! Bienvenido MX Market!
 \t\t\tAquí encontraras informacion relevante del Banco de México (BANXICO)
 \tsobre los principales indicadores financieros del país. Son mostrados al\
- ultimo dato oportuno liberado por BANXICO.\n
+ ultimo dato oportuno liberado por BANXICO.
      """
 
     # Este es la variable conteniendo lo que se mostrara en terminal.
@@ -69,6 +80,22 @@ def menu(data):
  \t{10}\t{13}\t{16}
 |                                         |                                        |                                        |
   \t{11}\t{14}\t{17}
+|                                         |                                        |                                        |
+ -----------------------------------------------------------------------------------------------------------------------------
+|                                         |                                        |                                        |
+| {18}{21}{24}
+|                                         |                                        |                                        |
+ \t{19}\t{22}\t{25}
+|                                         |                                        |                                        |
+  \t{20}\t{23}\t{26}
+|                                         |                                        |                                        |
+ -----------------------------------------------------------------------------------------------------------------------------
+|                                         |                                        |                                        |
+| {27}{30}{33}
+|                                         |                                        |                                        |
+ \t{28}\t{31}\t{34}
+|                                         |                                        |                                        |
+  \t{29}\t{32}\t{35}
 |                                         |                                        |                                        |
  -----------------------------------------------------------------------------------------------------------------------------
     """

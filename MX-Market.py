@@ -31,8 +31,7 @@ def main():
         content_json = response.json()
         content_json = content_json['bmx']['series']
         data = []
-        print(content_json)
-        a = input('contenido de respuesta')
+
         for dictionary in content_json:
             for values in dictionary['datos']:
                 data.append(

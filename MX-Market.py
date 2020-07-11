@@ -7,8 +7,10 @@
 
 import requests
 import json
+from graph_series import plot_series
 
-def main():
+
+def get_series(params):
     """ Logica de consulta de la API. """
 
     # La url se constrye con los siguientes parametros: series a consultar
@@ -17,11 +19,7 @@ def main():
     url = 'https://www.banxico.org.mx/SieAPIRest/service/v1/series/{0}'
     # Al agrega una nueva serie tambien es necesario agregar los indices de formateo
     # en la variable indicator de la funcion menu para poder imprimir.
-    series = 'SF61745,SF331451,SF283,SF282,SF43718,SF110169,\
-SP30577,SP74660,SP68257,SE40521,SP4,SL1'
-
-    date = '/datos/oportuno'  # Agregar fecha despues de /datos/
-    params = series + date
+    
     url = url.format(params)
     
     headers = {
@@ -32,8 +30,6 @@ SP30577,SP74660,SP68257,SE40521,SP4,SL1'
         }
     response = requests.get(url, headers=headers)
 
-    
-     
     if response.status_code == 200:
         content_json = response.json()
         content_json = content_json['bmx']['series']
@@ -50,19 +46,30 @@ SP30577,SP74660,SP68257,SE40521,SP4,SL1'
                         values['fecha'],
                         values['dato'])
                     )
+          
+        return data
 
-        menu(data)
+
+def graph_series():
+    """Grafica las series escogidas"""
+    print("Eliga la opcion del indicador que desea graficar")
+    indicator = input("Nombre de la serie (ejemplo: SP283): ")
+    beginning_time = input("Ingrese fecha de inicio (formato: yy-mm-dd): ")
+    ending_time = input("Ingrese fecha ultima (formato: yy-mm-dd): ")
+
+    # print(indicator, beginning_time, ending_time)
+    params = indicator + '/datos/' + beginning_time + '/' + ending_time
+    series = get_series(params)
+
+    plot_series(series)
+
+    """ with open('response-banxico.json', 'w', encoding='utf8') as f:
+        d = json.dumps(series, indent=4, ensure_ascii=False)
+        f.write(d) """
 
 
-def menu(data):
+def show_series(data):
     """ Funcion para imprimir por terminal el resultado de las consultas."""
-
-    msg = """ \n\t\t\t\t\t\tHola! Bienvenido MX Market!
-\t\t\tAquí encontraras informacion relevante del Banco de México (BANXICO)
-\tsobre los principales indicadores financieros del país. Son mostrados al\
- ultimo dato oportuno liberado por BANXICO.
-     """
-
     # Este es la variable conteniendo lo que se mostrara en terminal.
     # Sera formateado con los respectivos datos y se
     # representara cada dato en una columna y fila
@@ -121,10 +128,42 @@ def menu(data):
         indicator_list.append(time)
 
     # Imprimimos el msj de bienvenida y la lista de indicadores formateada
-    print(msg)
     display_data = indicator.format(*indicator_list)
-    print(display_data)
+    print(display_data, end='')
 
+
+
+def lobby():
+    msg = """ \n\t\t\t\t\t\tHola! Bienvenido MX Market!
+\t\t\tAquí encontraras informacion relevante del Banco de México (BANXICO)
+\tsobre los principales indicadores financieros del país. Son mostrados al\
+ ultimo dato oportuno liberado por BANXICO."""
+    print(msg, end='')
+
+    # datos default
+    series = 'SF61745,SF331451,SF283,SF282,SF43718,SF110169,\
+SP30577,SP74660,SP68257,SE40521,SP4,SL1'
+    date = '/datos/oportuno'  # Agregar fecha despues de /datos/
+    params = series + date
+
+    series = get_series(params) 
+    show_series(series)
+
+    option = int(input("""\
+    ----Menu (ingresar numero de opcion)----
+    1.-Gráficar series de tiempo de los indicadores macroeconomicos
+    2.-Opcion2
+    3.-Salir\t"""))
+    
+    if option == 1:
+        graph_series()
+    
+    elif option == 2:
+        pass
+
+    elif option == 3:
+        exit()
 
 if __name__ == "__main__":
-    main()
+    while True:    
+        lobby()

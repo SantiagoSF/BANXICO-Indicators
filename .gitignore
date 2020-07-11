@@ -3,3 +3,4 @@ test-api.py
 *.html
 .vscode
 /img
+__pycache__

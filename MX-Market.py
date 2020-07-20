@@ -29,7 +29,7 @@ def get_series(params):
         'Accept-Encoding': 'gzip'
         }
     response = requests.get(url, headers=headers)
-
+ 
     if response.status_code == 200:
         content_json = response.json()
         content_json = content_json['bmx']['series']
@@ -46,7 +46,8 @@ def get_series(params):
                         values['fecha'],
                         values['dato'])
                     )
-          
+        
+        
         return data
 
 
@@ -146,7 +147,7 @@ SP30577,SP74660,SP68257,SE40521,SP4,SL1'
     date = '/datos/oportuno'  # Agregar fecha despues de /datos/
     params = series + date
 
-    series = get_series(params) 
+    series = get_series(params)
     show_series(series)
 
     option = int(input("""\
